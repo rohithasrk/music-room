@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Music room</title>
+    </head>
+    <body>
+    <form action="/usercreate" method="POST">
+  		Name:<br>
+  		<input type="text" name="username" required><br>
+  		Email:<br>
+  		<input type="text" name="email" required><br>
+  		Password:<br>
+  		<input type="password" name="password" required><br>
+  		<input type="submit" value="Submit">
+	</form> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script>
+        var socket = io();
+    </script>
+    </body>
+</html>
