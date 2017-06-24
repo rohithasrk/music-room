@@ -67,6 +67,36 @@ io.on('connection', function(socket){
 });
 
 var JSON = require('JSON');
+
+app.post('/signin', function(req, res){
+  if (req.method == 'POST') {
+    con.connect(function(err){
+      if(err) throw err;
+      var body = "";
+      req.on('data',function(data){
+          body +=data;
+        });
+        var data = {};
+        var uname = '';
+        var pass = '';
+        req.on('end', function () {
+        body = body.split("&");
+        uname = body[0].split("=")[1];
+        pass = body[1].split("=")[1];
+  
+        var sql = 'SELECT * FROM user where username="'+uname+'" and password="'+pass+'"';
+          con.query(sql, function (err, result) {
+            if (err) throw err;
+            console.log("user found");
+            res.redirect('/');
+
+          }); 
+      });
+    });
+  }
+
+});
+
 app.post('/usercreate', function(req, res){
    
     if (req.method == 'POST') {
