@@ -1,0 +1,29 @@
+{
+  "name": "music-room",
+  "version": "1.0.0",
+  "description": "Online music rooms to listen to your favourite musicians",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rohithasrk/music-room.git"
+  },
+  "keywords": [
+    "music",
+    "rooms"
+  ],
+  "author": "rohith.asrk@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rohithasrk/music-room/issues"
+  },
+  "homepage": "https://github.com/rohithasrk/music-room#readme",
+  "dependencies": {
+    "browser-sync": "^2.18.12",
+    "express": "^4.15.2",
+    "http": "0.0.0",
+    "socket.io": "^2.0.3"
+  }
+}
