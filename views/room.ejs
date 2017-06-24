@@ -3,8 +3,40 @@
     <head><title>Room</title></head>
     <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var socket = io();
+        socket.on('copyLink', function(link) {
+            document.getElementById('link').innerHTML = link;
+        });
     </script>
+    <script>
+        var starttime;
+        
+        socket.on('openLink', function(songUrl){
+            console.log(songUrl);
+            x = songUrl.split('&')[0].split('=')[1];
+            songUrl = "https://www.youtube.com/embed/"+x+"?autoplay=1&controls=0&showinfo=0";
+            console.log(songUrl);
+            document.getElementById("player").setAttribute('src', songUrl);
+        });
+    
+        var songPlay = function(){
+            console.log("inside click function");
+            songUrl = document.getElementById('songUrl').value;
+            console.log(songUrl);
+            url = window.location.href;
+            url = url.split('/');
+            len = url.length;
+            username = url[len-1];
+            socket.emit('playSong', username, songUrl);
+        };
+    </script>
+    <div id="thingsDiv"><center>Room</div> 
+    <center>
+        <iframe id="player" width="420" height="345" src=""></iframe>
+        <input id="songUrl" type="url"></input>
+        <button id="playButton" onclick=songPlay()>Play</button>
+    </center>
     </body>
 </html>

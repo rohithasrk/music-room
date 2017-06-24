@@ -39,20 +39,19 @@ io.on('connection', function(socket){
 
     socket.on('joinRoom', function(username) {
         room = Room.joinRoom(socket, username);
-        io.sockets.in(room).emit('openLink', room.selectedTrack);
+        socket.emit('openLink', room.selectedTrack);
         console.log("Joining " + username + "'s room");
     });
     
     socket.on('createRoom', function(username) {
-        room = Room.createRoom(socket, username);
         socket.emit('copyLink', base_url + '/room/' + username);
         activeRooms = activeRooms + " " + base_url + '/room/' + username;
         console.log("Created a new room");
     });
     
-    socket.on('playSong', function(link, username, songUrl) {
-        room = Room.rooms[username];
-        io.sockets.in(room).emit('openLink', songUrl);
+    socket.on('playSong', function(username, songUrl) {
+        console.log(songUrl);
+        socket.emit('openLink', songUrl);
         console.log("Opening the song link");
     });
 });
