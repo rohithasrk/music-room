@@ -34,11 +34,11 @@ app.get('/', function(req, res){
 });
 
 app.get('/room/:id', function(req, res){
-    res.render('room', {'iscreator':'0'});
+    res.render('room', {'iscreator':'hidden'});
 });
 
 app.get('/create/room/:id', function(req, res){
-    res.render('room', {'iscreator': '1'});
+    res.render('room', {'iscreator': 'visible'});
 });
 
 app.get('/account/', function(req, res){
@@ -46,10 +46,20 @@ app.get('/account/', function(req, res){
 });
 
 var activeRooms = "";
+var currentTrack;
 io.on('connection', function(socket){
     console.log('User connected');
     
-    socket.emit('roomAll', activeRooms);
+    socket.on('startSetter', function(msg) {
+        console.log("Socked recieved");
+        if(!Room.isStartTime) {
+            Room.isStartTIme = true;
+            Room.startTime = msg;
+        }
+        console.log(Room.startTime);
+        socket.emit('start', Room.startTime);
+    });
+
     socket.on('joinRoom', function(username) {
         room = Room.joinRoom(socket, username);
         socket.emit('openLink', room.selectedTrack);
@@ -64,9 +74,14 @@ io.on('connection', function(socket){
     });
     
     socket.on('playSong', function(username, songUrl) {
-        console.log(songUrl);
+        currentTrack = songUrl;
+        console.log(currentTrack);
         socket.emit('openLink', songUrl);
-        console.log("Opening the song link");
+    });
+    
+    socket.on('test', function(username) {
+        console.log("Inside test function");
+        socket.emit('testBack', currentTrack);
     });
 });
 
