@@ -68,9 +68,10 @@ io.on('connection', function(socket){
         console.log("Joining " + username + "'s room");
     });
     
-    socket.on('createRoom', function(username) {
-        var d = new Date()
-        songStart = d.getTime()
+    socket.on('createRoom', function(username, songUrl){
+        var d = new Date();
+        songStart = d.getTime();
+        currentTrack = songUrl;
         socket.emit('copyLink', baseUrl + '/room/' + username);
         activeRooms = activeRooms + " " + baseUrl + '/room/' + username;
         console.log(activeRooms);
@@ -78,8 +79,6 @@ io.on('connection', function(socket){
     });
     
     socket.on('playSong', function(username, songUrl) {
-        currentTrack = songUrl;
-        console.log(currentTrack);
         socket.emit('openLink', songUrl);
     });
     

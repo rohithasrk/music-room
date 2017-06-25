@@ -48,8 +48,11 @@
         socket.on('openLink', function(songUrl){
             console.log(songUrl);
             if(!play){
-            x = songUrl.split('&')[0].split('=')[1];
-            songUrl = "https://www.youtube.com/embed/"+x+"?autoplay=1&controls=0&showinfo=0";}
+                x = songUrl.split('&')[0].split('=')[1];
+                songUrl = "https://www.youtube.com/embed/"+x+"?autoplay=1&controls=0&showinfo=0"
+            ;}else{
+                console.log(songUrl);
+            }
             document.getElementById("player").setAttribute('src', songUrl);
         });
     
@@ -67,7 +70,7 @@
             url = url.split('/');
             len = url.length;
             username = url[len-1];
-            socket.emit('createRoom', username);
+            socket.emit('createRoom', username, songUrl);
             socket.emit('playSong', username, songUrl);
         };
         
