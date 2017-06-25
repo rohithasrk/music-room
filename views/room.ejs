@@ -35,6 +35,7 @@
             url = url.split('/');
             len = url.length;
             username = url[len-1];
+            socket.emit('createRoom', username);
             socket.emit('playSong', username, songUrl);
         };
     </script>
@@ -49,7 +50,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/index">Music Box</a>
+      <button class="navbar-brand" href="/">Music Box</button>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -113,26 +114,17 @@
             <button id="playButton" onclick=songPlay()>Play</button>
         </div>
     </div> 
-
-    
-
+    <div id="link">
+    </div>
     </div>
     </div>
 </div>
 </body>
 </html>
-
-
-
-
-
-
-  
     <script>
-        
         socket.on('copyLink', function(link) {
             document.getElementById('link').innerHTML = link;
         });
-
+</script>
     </body>
 </html>

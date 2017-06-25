@@ -25,14 +25,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/index">Music Box</a>
+      <a class="navbar-brand" href="/">Music Box</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     
       <ul class="nav navbar-nav navbar-right">
-       <li><p class="navbar-text"><a href="/room/hjgdsa">Create a Room</a></p></li>
+       <li><p class="navbar-text"><a href="create/room/<%= username %>">Create a Room</a></p></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
 			<ul id="login-dp" class="dropdown-menu">
@@ -76,44 +76,27 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<script>
+    var socket = io();
+    socket.on('roomAll', function(activeRooms) {
+        console.log("Index page");
+        var res = activeRooms.split(" ");
+        for(i=1, i<res.length, i++) {
+            var ul = document.getElementById('room_list');
+            var li = document.createElement("l1");
+            var element = document.createElement("div");
+            element.setAttribute('class','box boxing1');
+            element.setAttribute('href', res[i]);
+            li.appendChild(element);
+            ul.appendChild(li);
+        }
+});
+</script>
 
-<div class="rooms">
-<ul>
-  <li>
-    <div class="box boximg1" tabindex="1" onClick="location.href = 'https://www.youtube.com/';">
-     
-    </div>
-  </li>
-  <li>
-    <div class="box boximg2" tabindex="2" onClick="location.href = 'https://www.youtube.com/';">
-     
-    </div>
-  </li>
-  <li>
-    <div class="box boximg3" tabindex="3" onClick="location.href = 'https://www.youtube.com/';">
-    
-    </div>
-  </li>
 
-</ul>
-<ul>
-  <li>
-    <div class="box boximg1" tabindex="1" onClick="location.href = 'https://www.youtube.com/';">
-     
-    </div>
-  </li>
-  <li>
-    <div class="box boximg2" tabindex="2" onClick="location.href = 'https://www.youtube.com/';">
-     
-    </div>
-  </li>
-  <li>
-    <div class="box boximg3" tabindex="3" onClick="location.href = 'https://www.youtube.com/';">
-      <i class="fa fa-hand-o-up"></i>
-      
-    </div>
-  </li>
-
+<div id="rooms">
+<h1 align="center">Active rooms</h1>
+<ul id="room_list">
 </ul>
 </div>
 </body>

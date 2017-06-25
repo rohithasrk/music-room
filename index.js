@@ -3,9 +3,10 @@ var app = express();
 var mysql = require('mysql');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var timesyncServer = require('timesync/server');
 
-var Room = require('./scripts/room');
+var Room = require('./room');
+var config = require('./config/config.json');
+var baseUrl = config.base_url;
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -16,27 +17,28 @@ var con = mysql.createConnection({
 
 
 app.use('/static', express.static('public'))
+app.use(express.static(__dirname + '/public'));
+
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(express.static(__dirname + '/public'));
-app.use('timesync', timesyncServer.requestHandler);
+app.set('port',(process.env.PORT || 3000));
 
-http.listen(8080, function(){
-    console.log('listening on *:8080');
+http.listen(app.get('port'), function(){
+    console.log('listening to port number '+ app.get('port'));
 });
 
 Room.io = io;
 
 app.get('/', function(req, res){
-    res.render('index');
+    res.render('index', {'username':"rohithasrk"});
 });
 
 app.get('/room/:id', function(req, res){
-    res.render('room');
+    res.render('room', {'iscreator':'0'});
 });
 
-app.get('/create/room', function(req, res){
-    res.render('usercreate');
+app.get('/create/room/:id', function(req, res){
+    res.render('room', {'iscreator': '1'});
 });
 
 app.get('/account/', function(req, res){
@@ -46,7 +48,8 @@ app.get('/account/', function(req, res){
 var activeRooms = "";
 io.on('connection', function(socket){
     console.log('User connected');
-
+    
+    socket.emit('roomAll', activeRooms);
     socket.on('joinRoom', function(username) {
         room = Room.joinRoom(socket, username);
         socket.emit('openLink', room.selectedTrack);
@@ -54,8 +57,9 @@ io.on('connection', function(socket){
     });
     
     socket.on('createRoom', function(username) {
-        socket.emit('copyLink', base_url + '/room/' + username);
-        activeRooms = activeRooms + " " + base_url + '/room/' + username;
+        socket.emit('copyLink', baseUrl + '/room/' + username);
+        activeRooms = activeRooms + " " + baseUrl + '/room/' + username;
+        console.log(activeRooms);
         console.log("Created a new room");
     });
     
