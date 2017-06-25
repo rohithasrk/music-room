@@ -21,8 +21,15 @@
         var roomFunction = function(){
             console.log('Inside room func');
             socket.emit('test', username);
-            socket.on('testBack', function(songUrl){
-            socket.emit('playSong', username, songUrl);
+            socket.on('testBack', function(songUrl, timeRelapsed){
+                console.log(songUrl);
+                console.log("time"+timeRelapsed);
+                x = songUrl.split('&')[0].split('=')[1];
+                songUrl = "https://www.youtube.com/embed/"+x+"?autoplay=1&controls=0&showinfo=0";
+                songUrl = songUrl.split('?');
+                songUrl = songUrl[0]+"?start=" + timeRelapsed + "&" + songUrl[1];
+                console.log(songUrl);
+                socket.emit('playSong', username, songUrl);
             });
         };
         
@@ -30,17 +37,19 @@
         len = url.split('/').length;
         username = url.split('/')[len-1];
         url = url.split('/')[len-3];
+        var play =0;
         if(url !== "create"){
             console.log('song stream');
+            play = 1;
             roomFunction();
         }
         
         var starttime;
         socket.on('openLink', function(songUrl){
             console.log(songUrl);
+            if(!play){
             x = songUrl.split('&')[0].split('=')[1];
-            songUrl = "https://www.youtube.com/embed/"+x+"?autoplay=1&controls=0&showinfo=0";
-            console.log(songUrl);
+            songUrl = "https://www.youtube.com/embed/"+x+"?autoplay=1&controls=0&showinfo=0";}
             document.getElementById("player").setAttribute('src', songUrl);
         });
     

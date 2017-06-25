@@ -47,6 +47,8 @@ app.get('/account/', function(req, res){
 
 var activeRooms = "";
 var currentTrack;
+var songStart;
+var timeRelapsed = 0;
 io.on('connection', function(socket){
     console.log('User connected');
     
@@ -67,6 +69,8 @@ io.on('connection', function(socket){
     });
     
     socket.on('createRoom', function(username) {
+        var d = new Date()
+        songStart = d.getTime()
         socket.emit('copyLink', baseUrl + '/room/' + username);
         activeRooms = activeRooms + " " + baseUrl + '/room/' + username;
         console.log(activeRooms);
@@ -81,7 +85,10 @@ io.on('connection', function(socket){
     
     socket.on('test', function(username) {
         console.log("Inside test function");
-        socket.emit('testBack', currentTrack);
+        var d = new Date()
+        var currentTime = d.getTime();
+        timeRelapsed = Math.floor((currentTime-songStart)/1000);
+        socket.emit('testBack', currentTrack, timeRelapsed);
     });
 });
 
