@@ -1,0 +1,151 @@
+
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    background-color:rgba(255,255,255,.8);
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+.btn-fb{
+    color: #fff;
+    background-color:#3b5998;
+}
+.btn-fb:hover{
+    color: #fff;
+    background-color:#496ebc 
+}
+.btn-tw{
+    color: #fff;
+    background-color:#55acee;
+}
+.btn-tw:hover{
+    color: #fff;
+    background-color:#59b5fa;
+}
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+}
+
+
+ul {
+  list-style: none;
+  text-align: center;
+}
+
+li {
+  display: inline-block;
+
+}
+
+.box {
+  position:relative;
+  border:none;
+  box-sizing:border-box;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  background-color: #ccc;
+  padding: 10px;
+  -webkit-box-shadow: inset 0 0 100px #000000;
+  -moz-box-shadow: inset 0 0 100px #000000;
+  box-shadow: inset 0 0 100px #000000;
+}
+
+.boximg1 {
+  background-image: url("http://cdn4.pitchfork.com/news/60171/6dfb51bc.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+.boximg2 {
+  background-image: url("http://cdn4.pitchfork.com/news/60171/6dfb51bc.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+.boximg3 {
+  background-image: url("http://cdn4.pitchfork.com/news/60171/6dfb51bc.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+.boximg4 {
+  background-image: url("http://cdn4.pitchfork.com/news/60171/6dfb51bc.jpg);
+  background-position: center center;
+  background-size: cover;
+}
+
+.overlay {
+  height: 300px;
+  width: 300px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: #ffffff;
+  opacity: 0;
+}
+.box:hover,
+.box:focus,
+.box:active{
+  box-shadow: inset 0 0 300px #000000;
+  -webkit-transition: box-shadow .5s ease;
+  -moz-transition: box-shadow .5s ease;
+  transition: box-shadow .5s ease;
+}
+
+.box:hover .overlay,
+.box:focus .overlay,
+.box:active .overlay{
+  opacity: 1;
+  -webkit-transition: opacity .5s ease;
+  -moz-transition: opacity .5s ease;
+  transition: opacity .5s ease;
+}
+
+.heading {
+  font-family: 'Limelight', cursive;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+
+.caption {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.5em;
+}
+.fa-hand-o-up{
+  position:absolute;
+  top:270px;
+  left:270px;
+  color:#ffffff;
+}
+
+.input-group-addon.success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(92, 184, 92);
+    border-color: rgb(76, 174, 76);
+}
